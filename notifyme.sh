@@ -1,6 +1,7 @@
 #!/bin/bash
 NOW=`date '+%Y-%m-%d %H:%M:%S'`
 myIP=`curl -s ipecho.net/plain`
+from_mail="metheman.here@gmail.com"
 status=$?
 if [ $status -gt 0 ]; then
 	echo "$NOW -- Something wrong"
@@ -12,11 +13,11 @@ else
 		else
 			echo "$NOW -- Ip has changed- $myIP  ... sending notification"
 			echo $myIP > current.txt
-			mail -s "Ha cambiado la ip" $1 <<< "Ahora es: $myIP"
+			mail -aFrom:$from_mail -s "Ha cambiado la ip $NOW" $1 <<< "$NOW Ahora es: $myIP"
 		fi
 	else
 		echo "$NOW -- first execution"
 		echo $myIP > current.txt
-		mail -s "First exec..Ha cambiado la ip" $1 <<< "Ahora es: $myIP"
+		mail -aFrom:$from_mail -s "First exec..Ha cambiado la ip $NOW" $1 <<< "$NOW Ahora es: $myIP"
 	fi
 fi
