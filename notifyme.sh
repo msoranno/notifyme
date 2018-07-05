@@ -11,6 +11,7 @@ else
 			echo "$NOW -- Same ip. Nothing to do -- $myIP"
 		else
 			echo "$NOW -- Ip has changed- $myIP  ... sending notification"
+			echo $myIP > current.txt
 			mail -s "Ha cambiado la ip" $1 <<< "Ahora es: $myIP"
 		fi
 	else
